@@ -1,0 +1,138 @@
+.headerSearch{
+    height: auto;
+    background: #febb02;
+    border: 3px solid #febb02;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 2px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: -25px;
+    width: 100%;
+    max-width: 1110px;
+}
+
+.headerIcon{
+    color: rgb(84, 84, 84);
+}
+
+.headerSearchItem:nth-child(1){
+    flex: 1 1 auto;
+    margin-left: 0;
+}
+.headerSearchItem:nth-child(2){
+    width: 27%;
+    position: relative;
+    cursor: pointer;
+}
+.headerSearchItem:nth-child(3){
+    width: 27%;
+    position: relative;
+    cursor: pointer;
+}
+.headerSearchItem:nth-child(4){
+    padding: 0;
+}
+
+.headerSearchItem{
+    background: #fff;
+    height: 50px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 10px;
+    color: #000;
+    margin-left: 4px;
+    font-size: 16px;
+}
+
+.headerSearchInput{
+    border: 0;
+    outline: 0;
+    width: 100%;
+}
+
+.headerBtn.search{
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.date{
+    position: absolute;
+    box-shadow: 0 2px 16px 0 rgba(26,26,26,0.24);
+    left: calc(-1 * 8px);
+    top: calc(100% + 16px);
+    z-index: 999;
+}
+
+.rdrDateDisplay{
+    display: none;
+}
+.rdrMonthName{
+    text-align: center;
+    color: #000000;
+    font-size: 17px;
+}
+
+.options{
+    position: absolute;
+    right: calc(-1* 8px);
+    left: auto;
+    top: calc(100% + 16px);
+    background: #fff;
+    box-shadow: 0 2px 16px 0 rgba(26,26,26,0.24);
+    border-radius: 8px;
+    padding: 32px;
+    min-width: 350px;
+    z-index: 999;
+}
+
+.optionsItem{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.optionsCounter{
+    display: flex;
+    align-items: center;
+    border: 1px solid #868686;
+    border-radius: 4px;
+}
+
+.optionCounterButton{
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 4px 8px;
+    font-size: 20px;
+    font-weight: 500;
+    border: 0;
+    color: var(--color2);
+    cursor: pointer;
+    transition: 0.1s;
+}
+.optionCounterButton:hover{
+    background: rgba(0,108,228,0.06);
+}
+.optionCounterButton:disabled{
+    color: #868686;
+}
+
+.optionCounterNumber{
+    text-align: center;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 0 4px;
+    width: 36px;
+}

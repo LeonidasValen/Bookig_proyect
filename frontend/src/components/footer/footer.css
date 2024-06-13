@@ -1,0 +1,77 @@
+footer{
+    width: 100%;
+    margin-top: 2em;
+    
+}
+
+.fHeader{
+    background: var(--color);
+    color: #fff;
+}
+
+.fHeaderRegis{
+    border-bottom: 1px solid #fff;
+    display: flex;
+    justify-content: center;
+    padding: 15px 10px;
+}
+
+.fHeaderRegis a{
+    border: 1px solid #fff;
+    border-radius: 3px;
+    padding: 4px 15px;
+    font-size: 13px;
+}
+
+.fHeaderRegis a:hover{
+    background: #ffffff42;
+}
+
+.fHeaderLinks{
+    max-width: 1094px;
+    min-width: 620px;
+    margin: 0 auto;
+    padding: 0 8px;
+}
+
+.fHLinksItems{
+    display: flex;
+    text-decoration: underline;
+}
+
+.fHeaderLinks li{
+    font-size: 13px;
+    font-weight: bold;
+    padding: 15px 10px;
+    border-right: 1px solid #000f7e;
+}
+.fHeaderLinks li:nth-child(6){
+    border-right: 0;
+}
+.fHeaderLinks li:hover{
+    background: #023172;
+}
+
+.fNavigation{
+    display: flex;
+    max-width: 1094px;
+    min-width: 620px;
+    margin: 0 auto;
+    padding: 16px 8px;
+}
+
+.fNavigationLinks{
+    width: 25%;
+    padding-right:10px;
+}
+
+.fNavigationLinks ul li{
+    margin: 0 0 10px 0;
+    line-height: 14px;
+    font-size: 13px;
+    color: #145abb;
+}
+
+.fNavigationLinks ul li a:hover{
+    text-decoration: underline;
+}

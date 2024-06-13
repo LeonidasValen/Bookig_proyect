@@ -1,0 +1,41 @@
+.pType{
+    width: 100%;
+    max-width: 1110px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pTypeContent{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.pTypeItem{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
+    width: 100%;
+    gap: calc(1 * 4px);
+}
+
+.pTypeImg{
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    padding-top: 80%;
+}
+.pTypeImg img{
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.pTypeItem span{
+    font-size: 16px;
+    font-weight: 700;
+}

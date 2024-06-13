@@ -1,0 +1,98 @@
+.FP{
+    width: 100%;
+    max-width: 1110px;
+    display: flex;
+    flex-direction: column;
+}
+
+.FPContainer{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 20px;
+}
+
+.FPItems{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    min-height: 360px;
+    box-shadow: 0 2px 8px 0 rgba(26,26,26,0.16);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.FPImg{
+    position: relative;
+    padding-top: 80%;
+}
+.FPImg img{
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.FPTitle h1{
+    font-size: 1em;
+}
+.FPTitle p{
+    font-size: 0.7em;
+    color: gray;
+}
+
+.FPInfo{
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+.FPInfoHeader{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.FPReview{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.FPCalification{
+    background: var(--color);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px 4px 4px 0;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.FPReviews{
+    font-size: 12px;
+    color: rgb(75, 75, 75);
+}
+
+.FPPpice{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: flex-end;
+}
+.FPPpice p{
+    color: rgb(75, 75, 75);
+    font-size: 0.7em;
+}
+.FPPpice span{
+    font-size: 1em;
+    font-weight: 700;
+}

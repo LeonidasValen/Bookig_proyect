@@ -1,0 +1,48 @@
+.pList{
+    width: 100%;
+    max-width: 1110px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pListContent{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.pListItem{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
+    width: 100%;
+}
+
+.pListImg{
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    padding-top: 80%;
+}
+.pListImg img{
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.pListTitle{
+    margin-top: 8px;
+}
+.pListTitle h1{
+    font-size: 1em;
+    margin-bottom: 2px;
+}
+.pListTitle p{
+    font-size: 0.8em;
+    margin-bottom: 2px;
+    color: #595959;
+}
