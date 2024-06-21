@@ -30,6 +30,7 @@ export const register = async(req, res)=>{
 
 export const login = async(req, res)=>{
     const {email, password} = req.body;
+    //console.log(email, password)
     try {
         //busca el correo del usuario
         const userFound = await Users.findOne({email})
@@ -45,7 +46,7 @@ export const login = async(req, res)=>{
         //configura las cookies
         res.cookie('token', token, {httpOnly: true, secure: true, sameSite: 'none'});
 
-        res.status(201).json({message: "Sesion iniciado exitosamente", token, id: userFound.id, isAdmin: userFound.isAdmin})
+        res.status(201).json({message: "Sesion iniciado exitosamente", token, id: userFound.id, isAdmin: userFound.isAdmin, username: userFound.username})
     } catch (error) {
         console.log(error)
         res.status(500).json({message: "Error interno del servidor"})

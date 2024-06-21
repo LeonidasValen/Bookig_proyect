@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
@@ -6,13 +6,47 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleArrowLeft, faCircleArrowRight, faCircleXmark, faLocationDot } from "@fortawesome/free-solid-svg-icons"
 
 import { useFecth } from "../../hooks/useFetch"
+import { SearchContext } from "../../context/SearchContext"
+import { AuthContext } from "../../context/AuthContext"
 import './hotels.css'
+import { Modal } from "../../components/modal/Modal"
 
 export function Hotels() {
 
-  const { id } = useParams();
+  const { user } = useContext(AuthContext)
 
-  const { data, loading, error } = useFecth(`http://localhost:8800/api/hotel/${id}`);
+  const { dates, options } = useContext(SearchContext)
+
+  const navigate = useNavigate()
+
+  const [openModal, setOpenModal] = useState(false)
+
+  //calculo de cuantas noches son
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+  function dayDifference(date1, date2) {
+    const d1 = new Date(date1);
+    const d2 = new Date(date2);
+    const timeDiff = Math.abs(d2.getTime() - d1.getTime());
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+    return diffDays;
+  }
+
+  const days = dates.length > 0 ? dayDifference(dates[0].endDate, dates[0].startDate) : 0;
+
+  const { id } = useParams();//trae el id del url
+
+  const { data, loading, error } = useFecth(`http://localhost:8800/api/hotel/${id}`);//en base el id de la url busca el hotel
+
+  const totalPrice = data.cheapestPrice * days * (options.room || 1);//calcula el precio del hotel por las noches y las habitaciones
+  const displayPrice = totalPrice === 0 ? data.cheapestPrice : totalPrice;//si el precio total es 0 osea porque no hay noches selecionadas trae el precio original
+
+  //adapta el precio argentino
+  const formatter = new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    minimumFractionDigits: 0,
+  });
+
   //slider imagenes
   const [slideNumber, setSlideNumber] = useState(0)
   const [open, setOpen] = useState(false)
@@ -22,12 +56,6 @@ export function Hotels() {
     setOpen(true)
   }
 
-  const formatter = new Intl.NumberFormat('es-AR', {
-    style: 'currency',
-    currency: 'ARS',
-    minimumFractionDigits: 0,
-  });
-
   const handleMove = (direction) => {
     let newSlideNumber;
     if (direction === "l") {
@@ -36,6 +64,15 @@ export function Hotels() {
       newSlideNumber = slideNumber === photos.length - 1 ? 0 : slideNumber + 1;
     }
     setSlideNumber(newSlideNumber);
+  }
+
+  //modal reservacion
+  const handleModal = () => {
+    if (user) {
+      setOpenModal(true)
+    } else {
+      navigate("/login")
+    }
   }
 
   const photos = [
@@ -68,62 +105,66 @@ export function Hotels() {
         </div>
       </main>)
   }
-
   return (
-    <main className='hotel'>
-      {
-        open &&
-        <div className="imgSlider">
-          <div className="sliderBg" onClick={() => setOpen(false)}></div>
-          <FontAwesomeIcon icon={faCircleArrowLeft} onClick={() => handleMove("l")} />
-          <div className="sliderWrapper">
-            <FontAwesomeIcon icon={faCircleXmark} className="sliderCruz" />
-            <img src={photos[slideNumber].src} alt="" />
+    <>
+      <main className='hotel'>
+        {
+          open &&
+          <div className="imgSlider">
+            <div className="sliderBg" onClick={() => setOpen(false)}></div>
+            <FontAwesomeIcon icon={faCircleArrowLeft} onClick={() => handleMove("l")} />
+            <div className="sliderWrapper">
+              <FontAwesomeIcon icon={faCircleXmark} className="sliderCruz" onClick={() => setOpen(false)} />
+              <img src={photos[slideNumber].src} alt="" />
+            </div>
+            <FontAwesomeIcon icon={faCircleArrowRight} onClick={() => handleMove("r")} />
           </div>
-          <FontAwesomeIcon icon={faCircleArrowRight} onClick={() => handleMove("r")} />
-        </div>
-      }
-      <section className='hotelContent'>
+        }
+        <section className='hotelContent'>
 
 
-        <h1 className="hotelTitle">{data.title}</h1>
-        <div className="hotelAddres">
-          <FontAwesomeIcon icon={faLocationDot} />
-          <p>{data.address}, {data.city}, Argentina</p>
-        </div>
-        <div className="hotelImages">
-          {
-            photos.slice(0, 1).map((photo, index) => (
-              <div className="hotelImgMiniature" key={index}>
-                <img onClick={() => handleOpen(index)} src={photo.src} alt="" />
-              </div>
-            ))
-          }
-          <div className="hotelImgW">
+          <h1 className="hotelTitle">{data.title}</h1>
+          <div className="hotelAddres">
+            <FontAwesomeIcon icon={faLocationDot} />
+            <p>{data.address}, {data.city}, Argentina</p>
+          </div>
+          <div className="hotelImages">
             {
-              photos.slice(1).map((photo, index) => (
-                <div className="hotelImgWrapper" key={index}>
-                  <img onClick={() => handleOpen(index + 1)} src={photo.src} alt="" />
+              photos.slice(0, 1).map((photo, index) => (
+                <div className="hotelImgMiniature" key={index}>
+                  <img onClick={() => handleOpen(index)} src={photo.src} alt="" />
                 </div>
               ))
             }
-          </div>
-        </div>
-        <div className="hoteldesc">
-          <p className="propertyDesc">
-            {data.desc}
-          </p>
-          <div className="hotelReserverd">
-            <div className="hrContent">
-              <h2>The best property</h2>
-              <p>The best location. Recent travelers give it a high rating</p>
-              <div className="rPresice"><span>{formatter.format(data.cheapestPrice)}</span><p>por noche</p></div>
-              <button>book now</button>
+            <div className="hotelImgW">
+              {
+                photos.slice(1).map((photo, index) => (
+                  <div className="hotelImgWrapper" key={index}>
+                    <img onClick={() => handleOpen(index + 1)} src={photo.src} alt="" />
+                  </div>
+                ))
+              }
             </div>
           </div>
-        </div>
-      </section>
-
-    </main>
+          <div className="hoteldesc">
+            <p className="propertyDesc">
+              {data.desc}
+            </p>
+            <div className="hotelReserverd">
+              <div className="hrContent">
+                <h2>The best property</h2>
+                <p>The best location. Recent travelers give it a high rating</p>
+                <div className="rPresice"><span>{formatter.format(displayPrice)}</span>{days > 0 ? <p>por {days} noches</p> : <p>por noche</p>}</div>
+                <button onClick={handleModal}>book now</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      {
+        openModal &&
+        <Modal setOpenModal={setOpenModal} hotelId={data._id} />
+      }
+    </>
   )
 }

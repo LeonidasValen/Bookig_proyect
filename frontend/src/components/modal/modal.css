@@ -1,0 +1,77 @@
+.reserve{
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .2s all;
+}
+
+.rContainer{
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.rSelect{
+    display: flex;
+    gap: 20px;
+}
+
+.rClose{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.rItem{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding: 20px 10px;
+}
+
+.rInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rTitle{
+    font-size: 20px;
+    font-weight: 500;
+}
+.rDesc{
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.rMax{
+    font-size: 12px;
+}
+
+.rPrice{
+    font-weight: 500;
+}
+
+.rButton{
+    width: 100%;
+    font-size: 14px;
+    border-radius: 5px;
+    background: var(--color2);
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+}

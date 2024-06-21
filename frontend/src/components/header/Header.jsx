@@ -1,10 +1,13 @@
+import { Search } from "../search/Search"
+import { useContext } from "react"
+import { AuthContext } from "../../context/AuthContext"
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBed, faCableCar, faCar, faPlane, faTaxi } from "@fortawesome/free-solid-svg-icons"
-
 import "./header.css"
-import { Search } from "../search/Search"
 
 export function Header({types}) {
+    const { user } = useContext(AuthContext)
 
     return (
         <div className="header">
@@ -38,7 +41,9 @@ export function Header({types}) {
                     <p className="headerDesc">
                         Search deals on hotels, homes, and much more...
                     </p>
-                    <button className="headerBtn">Sign in / Register</button>
+                    {!user &&
+                        <button className="headerBtn">Sign in / Register</button>
+                    }
                     
                     <Search/>
                 </>

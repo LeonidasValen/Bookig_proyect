@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,8 +11,11 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import ListItem from './ListItem';
 import { useFecth } from '../../hooks/useFetch';
 import './list.css'
+import { SearchContext } from '../../context/SearchContext';
 
 export function List() {
+
+  const {dispatch} = useContext(SearchContext)
 
   const location = useLocation()
 
@@ -22,7 +25,7 @@ export function List() {
   //menu calendario
   const [openDate, setOpenDate] = useState(false);
   const optionsRef = useRef();
-  const [date, setDate] = useState(location.state.date)
+  const [dates, setDate] = useState(location.state.dates)
 
   //menu contador
   const [openOptions, setOpenOptions] = useState(false);
@@ -66,10 +69,11 @@ export function List() {
   const handleSearch = async () => {
     try {
       setDestination(city);
+      dispatch({type: "NEW_SEARCH", payload:{destination,dates,options}})
       navigate("/hotels", {
         state: {
           destination: city,
-          date,
+          dates,
           options
         }
       });
@@ -97,14 +101,14 @@ export function List() {
             <div className='lsi Calendari'>
               <FontAwesomeIcon icon={faCalendarDay} onClick={() => setOpenDate(!openDate)} />
               <span onClick={() => setOpenDate(!openDate)}>
-                {`${format(date[0].startDate, "dd/MM/yyyy")} to ${format(date[0].endDate, "dd/MM/yyyy")}`}
+                {`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(dates[0].endDate, "dd/MM/yyyy")}`}
               </span>
               {openDate && (
                 <DateRange
                   months={2}
                   onChange={item => setDate([item.selection])}
                   moveRangeOnFirstSelection={false}
-                  ranges={date}
+                  ranges={dates}
                   className="date"
                   direction="horizontal"
                 />

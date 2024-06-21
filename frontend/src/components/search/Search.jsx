@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect, useContext } from 'react';
+import { SearchContext } from '../../context/SearchContext';
 
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed, faCalendarDay, faPerson } from "@fortawesome/free-solid-svg-icons";
 import { DateRange } from 'react-date-range';
@@ -12,12 +13,15 @@ import './search.css';
 
 export function Search() {
     //buscador
+
+    const {dispatch} = useContext(SearchContext)
+
     const [destination, setDestination] = useState("")
 
     //menu calendario
     const [openDate, setOpenDate] = useState(false);
     const optionsRef = useRef();
-    const [date, setDate] = useState([
+    const [dates, setDate] = useState([
         {
             startDate: new Date(),
             endDate: new Date(),
@@ -62,7 +66,8 @@ export function Search() {
 
     const navigate = useNavigate()
     const handleSearch = ()=>{
-        navigate("/hotels", {state:{destination,date,options}})
+        dispatch({type: "NEW_SEARCH", payload:{destination,dates,options}})
+        navigate("/hotels", {state:{destination,dates,options}})
     }
 
     return (
@@ -75,14 +80,14 @@ export function Search() {
             <div className="headerSearchItem" ref={dateRef}>
                 <FontAwesomeIcon icon={faCalendarDay} className="headerIcon" onClick={() => setOpenDate(!openDate)} />
                 <span onClick={() => setOpenDate(!openDate)} className="headerSearchText">
-                    {`${format(date[0].startDate, "dd/MM/yyyy")} to ${format(date[0].endDate, "dd/MM/yyyy")}`}
+                    {`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(dates[0].endDate, "dd/MM/yyyy")}`}
                 </span>
                 {openDate && (
                     <DateRange
                         months={2}
                         onChange={item => setDate([item.selection])}
                         moveRangeOnFirstSelection={false}
-                        ranges={date}
+                        ranges={dates}
                         className="date"
                         direction="horizontal"
                     />

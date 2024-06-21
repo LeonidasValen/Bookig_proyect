@@ -1,6 +1,14 @@
+import { useNavigate } from 'react-router-dom'
 import './featured.css'
 
 export function Featured() {
+
+    const navigate = useNavigate()
+
+    const handleNavigate = (city) =>{
+        navigate("/hotels")
+    }
+
     return (
         <div className="features">
             <div className="destinationTitle">
@@ -9,7 +17,7 @@ export function Featured() {
             </div>
             <section className='destination'>
                 <article className="featuredGrid">
-                    <article className="featuredItem">
+                    <article className="featuredItem" onClick={handleNavigate}>
                         <div className='featuredImg'>
                             <img src="https://cf.bstatic.com/xdata/images/city/600x600/664052.jpg?k=e0c8a97ea4cd0ab7e3757392c8fb02708767377e288a6c3e0889d22497e8e8f1&o=" alt="" />
                         </div>

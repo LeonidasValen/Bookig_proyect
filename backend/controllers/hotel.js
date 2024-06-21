@@ -1,4 +1,5 @@
 import Hotels from "../models/Hotels.js"
+import Room from "../models/Room.js";
 
 //crear un nuevo hotel
 export const createHotel = async (req, res) => {
@@ -101,5 +102,20 @@ export const countByType = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: "Error en el servidor al traer los hoteles" })
+    }
+}
+
+export const getHotelRoom = async (req, res) =>{
+    try {
+        const room = await Hotels.findById(req.params.id)
+
+        const list = await Promise.all(room.rooms.map(room=>{
+            return Room.findById(room)
+        }))
+
+        res.status(200).json(list)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Error en el servidor al traer las habitaciones" })
     }
 }

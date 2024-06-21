@@ -1,7 +1,7 @@
 import {Router} from "express"
 import { validateId } from "../middlewares/validateId.js"
 import { verifyUser } from "../libs/validateJWT.js"
-import { countByCity, countByType, createHotel, deleteHotel, getAllHotel, getHotel, updateHotel } from "../controllers/hotel.js"
+import { countByCity, countByType, createHotel, deleteHotel, getAllHotel, getHotel, getHotelRoom, updateHotel } from "../controllers/hotel.js"
 
 const router = Router()
 
@@ -13,6 +13,8 @@ router.get('/hotel', getAllHotel)
 router.get('/hotel/countByCity', countByCity)
 //contador tipos de alojamientos
 router.get('/hotel/countByType', countByType)
+//trae la habitacion segun su hotel
+router.get('/rooms/:id', validateId, getHotelRoom)
 //GET
 router.get('/hotel/:id', validateId, getHotel)
 //UPDATE

@@ -1,3 +1,4 @@
+
 .list{
     display: flex;
     justify-content: center;
@@ -154,12 +155,14 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
+    justify-content: flex-end;
     gap: calc(2 * 4px);
 }
 
 .peCalification span{
     font-size: 16px;
     font-weight: 600;
+    text-wrap: nowrap;
 }
 
 .peCalification .pePuntage{

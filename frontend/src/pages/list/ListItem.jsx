@@ -9,6 +9,20 @@ export default function ListItem({item}) {
         minimumFractionDigits: 0,
     });
 
+    const getRatingText = (rating) => {
+        if (rating >= 9.5) {
+          return 'Exceptional';
+        } else if (rating >= 8.5) {
+          return 'Excellent';
+        } else if (rating >= 8) {
+          return 'Very Good';
+        } else if (rating >= 7) {
+          return 'Good';
+        } else {
+          return 'Bad';
+        }
+      };
+
     return (
         <article className='propertyArticle'>
             <div className="paContainer">
@@ -28,8 +42,8 @@ export default function ListItem({item}) {
                     </div>
                     <div className="piReview">
                         <div className='peCalification'>
-                            <span>Exepcional</span>
-                            <div className='pePuntage'>9.8</div>
+                            <span>{getRatingText(item.rating)}</span>
+                            <div className='pePuntage'>{item.rating}</div>
                         </div>
                         <div className='pePrice'>
                             <span>Precio por noche</span>
